@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Queen!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Audio Element -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="bg-music.mp3.mp3" type="audio/mpeg">
+        <source src="bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 1. Welcome Gate Screen -->
+    <div id="welcome-screen">
+        <div class="envelope-wrapper">
+            <div class="envelope">
+                <div class="heart-btn">❤️</div>
+            </div>
+            <div class="click-text">Click to Enter My Queen's World</div>
+        </div>
+    </div>
+
+    <!-- Fixed Music Controller Button (Bottom Right) -->
+    <button id="music-toggle-btn" class="hidden-btn">🎵 Play Music</button>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <div class="particles" id="particles"></div>
+
+        <!-- 3D Scrolling Diamond Heart (Pure Responsive CSS 3D Element) -->
+        <div class="cake-container" id="scrolling-cake">
+            <div class="diamond-heart-3d">
+                <div class="heart-face front-left"></div>
+                <div class="heart-face front-right"></div>
+                <div class="heart-face back-left"></div>
+                <div class="heart-face back-right"></div>
+            </div>
+        </div>
+
+        <!-- Section 1: Hero Wish -->
+        <section class="hero-section">
+            <h1 class="glow-text">Happy Birthday, My Precious Wife! 👑</h1>
+            <div class="bday-date">1999 . 07 . 02</div>
+            <p class="sub-text">Scroll down to see our magical universe...</p>
+        </section>
+
+        <!-- Fixed YouTube Video Embed Presentation Section -->
+        <section class="video-section scroll-fade-element">
+            <h2 class="section-title">A Special Dedication For You</h2>
+            <div class="video-wrapper">
+                <!-- Exact YouTube Embed Code Provided Placed Natively -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/vRUZnEnoVnA?si=d7_ZeKk_Et2UmCc-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- Section 2: Auto Moving Infinite Image Slider -->
+        <section class="slider-section">
+            <h2 class="section-title">Visual Journey</h2>
+            <div class="slider-container">
+                <div class="image-track" id="auto-image-track">
+                    <!-- Dynamic slider images injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Love Story -->
+        <section class="story-section">
+            <div class="story-card scroll-fade-element" id="card1">
+                <h2>The Day My Life Changed...</h2>
+                <p>2019 දෙසැම්බර් 11 වෙනිදා... එදා තමයි අපේ ආදර කතාව පටන් ගත්තේ. එදා ඉඳන් අද වෙනකම්, හැම තත්පරයකම ඔයා මගේ ජීවිතේ වාසනාව වුණා. අවුරුදු ගාණක් තිස්සේ අපි එකට ආපු මේ ගමන හරිම ලස්සනයි. මගේ හෙවනැල්ල වගේ හැමදේටම ළඟින් හිටියට ස්තූතියි මගේ රත්තරං.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Scroll Fade Photo Gallery Matrix -->
+        <section class="gallery-section">
+            <h2 class="gallery-title">Our Beautiful Memories</h2>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Dynamic grid images injected via JS -->
+            </div>
+        </section>
+
+        <!-- Section 5: Love Counter -->
+        <section class="counter-section">
+            <h2 class="counter-title">Years of Pure Love Since 2019/12/11:</h2>
+            <div class="counter-box">
+                <div class="time-unit"><span id="days">00</span>Days</div>
+                <div class="time-unit"><span id="hours">00</span>Hours</div>
+                <div class="time-unit"><span id="mins">00</span>Mins</div>
+                <div class="time-unit"><span id="secs">00</span>Secs</div>
+            </div>
+            <p class="footer-quote">"Forever & Always, Till My Last Breath."</p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+/* --- Global Layout Settings --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+    overflow-x: hidden;
+    background: #0a0512;
+    color: #fff;
+    scroll-behavior: smooth;
+    min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0512; }
+::-webkit-scrollbar-thumb { background: #ff4d79; border-radius: 10px; }
+
+/* --- Welcome Gateway Cover --- */
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, #200f26 0%, #05020a 100%);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.envelope-wrapper { text-align: center; animation: float 3s ease-in-out infinite; }
+.envelope {
+    width: 150px; height: 100px; background: #ff4d79;
+    position: relative; border-radius: 0 0 12px 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    display: flex; justify-content: center; align-items: center;
+}
+.envelope::before {
+    content: ''; position: absolute; top: -74px; left: 0;
+    border-left: 75px solid transparent; border-right: 75px solid transparent;
+    border-bottom: 75px solid #ff4d79;
+}
+.heart-btn { font-size: 2.2rem; animation: heartbeat 1.2s infinite; z-index: 2; }
+.click-text { margin-top: 25px; font-size: 0.9rem; letter-spacing: 2px; color: #ffb3c6; text-transform: uppercase; }
+
+/* --- Fixed Music Toggle UI Button --- */
+#music-toggle-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 10000;
+    background: linear-gradient(135deg, #ff4d79, #ff3366);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 8px 25px rgba(255, 77, 121, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#music-toggle-btn.playing { background: #ffd700; color: #0a0512; box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4); }
+.hidden-btn { display: none !important; }
+
+/* --- Main Layout Architecture --- */
+#main-content { display: none; opacity: 0; transition: opacity 1.2s ease-in-out; }
+.particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+section { min-height: 100vh; display: flex; align-items: center; position: relative; z-index: 3; padding: 60px 8%; }
+
+/* --- Pure CSS 3D Floating Wave Diamond Heart --- */
+.cake-container {
+    position: fixed;
+    top: 25%;
+    right: 12%;
+    width: 120px;
+    height: 120px;
+    perspective: 800px;
+    z-index: 10;
+    pointer-events: none;
+    transition: all 0.2s ease-out;
+}
+
+.diamond-heart-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(45deg);
+    animation: spinHeart 6s linear infinite;
+}
+
+.heart-face {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ff3366, #ff758c);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Constructing 3D geometry using matrix translations */
+.front-left {
+    transform: rotateY(0deg) translateZ(40px) rotate(45deg);
+    border-radius: 50% 0 0 50%;
+}
+.front-right {
+    transform: rotateY(90deg) translateZ(40px) rotate(45deg);
+    border-radius: 50% 50% 0 0;
+}
+.back-left {
+    transform: rotateY(180deg) translateZ(40px) rotate(45deg);
+    border-radius: 0 50% 50% 0;
+}
+.back-right {
+    transform: rotateY(270deg) translateZ(40px) rotate(45deg);
+    border-radius: 0 0 50% 50%;
+}
+
+/* --- Birthday Wish Video Frame UI --- */
+.video-section {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    background: rgba(0,0,0,0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(255, 77, 121, 0.25);
+    border: 2px solid rgba(255, 77, 121, 0.4);
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Typography & Wish Styling --- */
+.hero-section { flex-direction: column; justify-content: center; text-align: center; }
+.glow-text { font-size: 3.8rem; color: #ff4d79; text-shadow: 0 0 25px rgba(255,77,121,0.6); margin-bottom: 25px; animation: glow 2s ease-in-out infinite alternate; }
+.bday-date { font-size: 2.4rem; color: #ffd700; letter-spacing: 6px; font-weight: 700; }
+.sub-text { margin-top: 20px; color: #ffb3c6; font-size: 1.1rem; }
+
+/* --- Section 2: Infinite Auto Slider --- */
+.slider-section { flex-direction: column; justify-content: center; overflow: hidden; }
+.section-title { font-size: 2.5rem; color: #ff4d79; margin-bottom: 40px; text-align: center; }
+.slider-container { width: 100%; max-width: 1100px; display: flex; overflow: hidden; background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.05); }
+.image-track { display: flex; gap: 20px; animation: scrollTrack 35s linear infinite; width: max-content; }
+.slider-card { width: 220px; height: 300px; border-radius: 12px; overflow: hidden; flex-shrink: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: 2px solid rgba(255, 77, 121, 0.3); }
+.slider-card img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Section 3 Settings --- */
+.story-section { justify-content: flex-start; }
+.story-card { background: rgba(15, 8, 24, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(255, 77, 121, 0.3); padding: 40px; border-radius: 24px; max-width: 600px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+.story-card h2 { color: #ff4d79; margin-bottom: 20px; font-size: 2rem; }
+.story-card p { font-size: 1.1rem; line-height: 1.8; color: #e2dcee; }
+
+/* --- Section 4 Grid Structure --- */
+.gallery-section { flex-direction: column; padding: 80px 5%; }
+.gallery-title { font-size: 2.5rem; color: #ff4d79; margin-bottom: 50px; text-align: center; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px; width: 100%; max-width: 1100px; }
+.photo-frame { background: #fff; padding: 12px 12px 40px 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); transform: rotate(var(--rotation)); transition: all 0.4s ease; }
+.photo-frame:hover { transform: rotate(0deg) scale(1.05) translateY(-5px); box-shadow: 0 25px 45px rgba(255,77,121,0.3); z-index: 10; }
+.photo-frame img { width: 100%; height: 250px; object-fit: cover; }
+
+/* --- Dynamic Scroll Reveal Engine Engine Classes --- */
+.scroll-fade-element { opacity: 0; transform: translateY(60px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+.scroll-fade-element.revealed { opacity: 1; transform: translateY(0); }
+
+/* --- Section 5 Counter --- */
+.counter-section { flex-direction: column; justify-content: center; text-align: center; }
+.counter-title { color: #ff4d79; margin-bottom: 40px; font-size: 1.8rem; }
+.counter-box { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.time-unit { background: rgba(255, 77, 121, 0.15); border: 1px solid rgba(255, 77, 121, 0.3); padding: 20px; border-radius: 16px; min-width: 100px; }
+.time-unit span { display: block; font-size: 2.5rem; font-weight: 700; color: #ffd700; }
+.footer-quote { margin-top: 55px; font-style: italic; color: #ffd700; font-size: 1.2rem; }
+
+/* --- Animations Keyframes --- */
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+@keyframes glow { from { text-shadow: 0 0 10px rgba(255,77,121,0.4); } to { text-shadow: 0 0 35px rgba(255,77,121,0.8), 0 0 15px #ffd700; } }
+@keyframes spinHeart { 0% { transform: rotateX(-20deg) rotateY(0deg); } 100% { transform: rotateX(-20deg) rotateY(360deg); } }
+@keyframes scrollTrack { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-240px * 6)); } }
+
+/* --- MOBILE RESPONSIVE MEDIA BREAKPOINTS --- */
+@media (max-width: 768px) {
+    section { padding: 60px 5%; }
+    .cake-container { width: 70px; height: 70px; top: 40%; right: 4%; }
+    .heart-face { width: 50px; height: 50px; }
+    .front-left { transform: rotateY(0deg) translateZ(25px) rotate(45deg); }
+    .front-right { transform: rotateY(90deg) translateZ(25px) rotate(45deg); }
+    .back-left { transform: rotateY(180deg) translateZ(25px) rotate(45deg); }
+    .back-right { transform: rotateY(270deg) translateZ(25px) rotate(45deg); }
+    .glow-text { font-size: 2.2rem; }
+    .bday-date { font-size: 1.5rem; letter-spacing: 3px; }
+    .section-title, .gallery-title { font-size: 1.8rem; margin-bottom: 25px; }
+    .story-card { padding: 25px; }
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+    .photo-frame { padding: 8px 8px 25px 8px; }
+    .photo-frame img { height: 160px; }
+    .time-unit { min-width: 75px; padding: 12px; }
+    .time-unit span { font-size: 1.6rem; }
+    #music-toggle-btn { bottom: 15px; right: 15px; padding: 10px 16px; font-size: 0.85rem; }
+}
