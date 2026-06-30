@@ -8,13 +8,15 @@
 </head>
 <body>
 
-    <!-- Background Audio Element -->
     <audio id="bg-music" loop preload="auto">
-        <source src="bg-music.mp3.mp3" type="audio/mpeg">
         <source src="bg-music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 1. Welcome Gate Screen -->
+    <audio id="proposal-tone" preload="auto">
+        <source src="videos/proposal-tone.mp4" type="audio/mp4">
+        <source src="videos/proposal-tone.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="welcome-screen">
         <div class="envelope-wrapper">
             <div class="envelope">
@@ -24,15 +26,31 @@
         </div>
     </div>
 
-    <!-- Fixed Music Controller Button (Bottom Right) -->
     <button id="music-toggle-btn" class="hidden-btn">🎵 Play Music</button>
 
-    <!-- Main Content -->
+    <div id="ring-popup-overlay" class="popup-overlay-hidden">
+        <div class="popup-3d-scene">
+            <div class="popup-ring-box-3d" id="popup-box-model">
+                <div class="box-face box-bottom"></div>
+                <div class="box-face box-front"></div>
+                <div class="box-face box-back"></div>
+                <div class="box-face box-left"></div>
+                <div class="box-face box-right"></div>
+                <div class="popup-box-lid" id="popup-box-lid">
+                    <div class="box-face lid-top"></div>
+                </div>
+                <div class="popup-magic-ring" id="popup-ring">💍</div>
+            </div>
+        </div>
+        <div class="popup-controls">
+            <h2 class="proposal-heading">Will you continue walking this beautiful journey with me forever?</h2>
+            <button id="yes-button" class="yes-btn">Yes, I Do! 💖</button>
+        </div>
+    </div>
+
     <div id="main-content">
         <div class="particles" id="particles"></div>
-
-        <!-- 3D Scrolling Diamond Heart (Pure Responsive CSS 3D Element) -->
-        <div class="cake-container" id="scrolling-cake">
+        <div id="fireworks-container"></div> <div class="cake-container" id="scrolling-cake">
             <div class="diamond-heart-3d">
                 <div class="heart-face front-left"></div>
                 <div class="heart-face front-right"></div>
@@ -41,33 +59,43 @@
             </div>
         </div>
 
-        <!-- Section 1: Hero Wish -->
         <section class="hero-section">
             <h1 class="glow-text">Happy Birthday, My Precious Wife! 👑</h1>
             <div class="bday-date">1999 . 07 . 02</div>
             <p class="sub-text">Scroll down to see our magical universe...</p>
         </section>
 
-        <!-- Fixed YouTube Video Embed Presentation Section -->
         <section class="video-section scroll-fade-element">
             <h2 class="section-title">A Special Dedication For You</h2>
             <div class="video-wrapper">
-                <!-- Exact YouTube Embed Code Provided Placed Natively -->
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/vRUZnEnoVnA?si=d7_ZeKk_Et2UmCc-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe 
+                    id="youtube-player"
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/vRUZnEnoVnA?enablejsapi=1&autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=vRUZnEnoVnA" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+                <button id="yt-control-btn" class="custom-video-btn">⏸ Pause Video</button>
             </div>
         </section>
 
-        <!-- Section 2: Auto Moving Infinite Image Slider -->
+        <section class="local-videos-section scroll-fade-element">
+            <h2 class="section-title">Captured Moments</h2>
+            <div class="video-grid" id="local-video-grid">
+                </div>
+        </section>
+
         <section class="slider-section">
             <h2 class="section-title">Visual Journey</h2>
             <div class="slider-container">
                 <div class="image-track" id="auto-image-track">
-                    <!-- Dynamic slider images injected via JS -->
-                </div>
+                    </div>
             </div>
         </section>
 
-        <!-- Section 3: Love Story -->
         <section class="story-section">
             <div class="story-card scroll-fade-element" id="card1">
                 <h2>The Day My Life Changed...</h2>
@@ -75,15 +103,17 @@
             </div>
         </section>
 
-        <!-- Section 4: Scroll Fade Photo Gallery Matrix -->
         <section class="gallery-section">
             <h2 class="gallery-title">Our Beautiful Memories</h2>
             <div class="gallery-grid" id="gallery-grid">
-                <!-- Dynamic grid images injected via JS -->
+                </div>
+            <div style="margin-top: 50px; text-align: center; z-index: 5; position: relative;">
+                <button id="see-more-btn" class="custom-video-btn" style="position: static; padding: 14px 35px; font-size: 1.1rem; border-radius: 30px;">
+                    See More Memories ✨
+                </button>
             </div>
         </section>
 
-        <!-- Section 5: Love Counter -->
         <section class="counter-section">
             <h2 class="counter-title">Years of Pure Love Since 2019/12/11:</h2>
             <div class="counter-box">
@@ -93,6 +123,66 @@
                 <div class="time-unit"><span id="secs">00</span>Secs</div>
             </div>
             <p class="footer-quote">"Forever & Always, Till My Last Breath."</p>
+        </section>
+
+        <section class="secret-gift-section scroll-fade-element">
+            <div id="secret-gift-wrapper" class="gift-sealed">
+                
+                <div id="gift-mystery-cover">
+                    <div class="mystery-box-icon">🎁✨</div>
+                    <h3>You have an unopened package from Ashan</h3>
+                    <button id="reveal-gift-btn" class="yes-btn" style="font-size: 1.1rem; padding: 12px 30px;">Tap to Open Your Gift 🌟</button>
+                </div>
+
+                <div id="gift-unveiled-content" class="gift-content-hidden">
+                    <div class="surprise-cake-container">
+                        <div class="gift-cake-3d">
+                            <div class="g-cake-tier tier-g-base"></div>
+                            <div class="g-cake-tier tier-g-top"></div>
+                            <div class="g-candle"></div>
+                        </div>
+                    </div>
+                    <h2 class="princess-wish-title">Happy Birthday, My Princess! 🎂💖</h2>
+                    <p class="princess-wish-sub">May all your magical dreams come true today, my queen.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="promises-section">
+            <h2 class="promises-title scroll-fade-element">My Endless Promises to You 💖</h2>
+            
+            <div class="promises-container">
+                <div class="ring-box-3d-wrapper" id="scrolling-ring-box" style="cursor: pointer;">
+                    <div class="ring-box-3d">
+                        <div class="box-face box-bottom"></div>
+                        <div class="box-face box-front"></div>
+                        <div class="box-face box-back"></div>
+                        <div class="box-face box-left"></div>
+                        <div class="box-face box-right"></div>
+                        <div class="box-lid" id="ring-box-lid">
+                            <div class="box-face lid-top"></div>
+                        </div>
+                        <div class="magic-ring">💍</div>
+                    </div>
+                    <span class="click-hint-text">Click Me ✨</span>
+                </div>
+
+                <div class="promises-list">
+                    <div class="promise-card scroll-fade-element">
+                        <h3>To Protect Your Smile</h3>
+                        <p>ජීවිතේ මොන වගේ බාධක ආවත්, ඔයාගේ මූණේ තියෙන ඔය ලස්සන හිනාව කවදාවත් නැති වෙන්න දෙන්නේ නැහැ කියලා මම පොරොන්දු වෙනවා.</p>
+                    </div>
+                    <div class="promise-card scroll-fade-element">
+                        <h3>To Stand By You Forever</h3>
+                        <p>2019 දෙසැම්බර් 11 වැනිදා වගේම, අදත්, හෙටත්, මගේ අවසාන හුස්ම දක්වාම ඔයාගේ අත අත්නොහැර ළඟින්ම ඉන්නවා.</p>
+                    </div>
+                    <div class="promise-card scroll-fade-element">
+                        <h3>To Love You More Each Day</h3>
+                        <p>හැමදාම උදේට ඇහැරෙද්දි ඊයේට වඩා ආදරයකින් ඔයා දෙස බැලීමටත්, ඔයා මගේ මුළු ලෝකයම කර ගැනීමටත් මම පොරොන්දු වෙනවා.</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 
