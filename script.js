@@ -735,6 +735,7 @@ function fadeAudioChannel(audioElement, direction, duration, callback) {
 }
 
 // --- Smooth 3D Objects Scroll Transform Mechanics ---
+// --- Smooth 3D Objects Scroll Transform Mechanics ---
 function initAdvancedScrollFadeMechanics() {
     const fadeElements = document.querySelectorAll('.scroll-fade-element');
     const heartContainer = document.getElementById('scrolling-cake');
@@ -742,55 +743,46 @@ function initAdvancedScrollFadeMechanics() {
     const ringBoxLid = document.getElementById('ring-box-lid');
     
     const triggerCoreScrollActions = () => {
+        // ... (fadeElements කොටස එලෙසම තබන්න) ...
         fadeElements.forEach(el => {
             const rect = el.getBoundingClientRect();
             const isVisible = rect.top < window.innerHeight - 50 && rect.bottom > 0;
-            if(isVisible) {
-                el.classList.add('revealed'); 
-            }
+            if(isVisible) { el.classList.add('revealed'); }
         });
 
+        // ගණනය කිරීම් සඳහා ස්ථාවර percent එකක් ලබා ගැනීම
         const scrollY = window.scrollY;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0; 
         
-        if(maxScroll > 0) {
-            const percent = scrollY / maxScroll;
+        // 1. Heart Container Movement (දැන් වේගය percent එක මත පමණක් රඳා පවතී)
+        if(heartContainer) {
+            const isMobile = window.innerWidth < 768;
+            const horizontalFactor = isMobile ? 30 : 150; 
+            const verticalTravelDistance = isMobile ? 45 : 55;
+
+            const xShiftPosition = Math.sin(percent * Math.PI * 2) * horizontalFactor;
+            const yShiftPosition = 25 + (percent * verticalTravelDistance);
+
+            heartContainer.style.right = `calc(${isMobile ? 4 : 12}% - ${xShiftPosition}px)`;
+            heartContainer.style.top = `${yShiftPosition}%`;
+        }
+
+        // 2. Ring Box Movement
+        if(ringBoxContainer && ringBoxLid) {
+            // මෙහිදී scrollY වෙනුවට percent භාවිතා කරන්න
+            const targetLidAngle = -110 - (percent * 70);
+            ringBoxLid.style.transform = `rotateX(${targetLidAngle}deg) translateY(-120px)`;
+
+            const boxWaveX = Math.sin(percent * Math.PI) * 20;
+            const boxModel = ringBoxContainer.querySelector('.ring-box-3d');
             
-            if(heartContainer) {
-                const isMobile = window.innerWidth < 768;
-                const horizontalFactor = isMobile ? 30 : 150; 
-                const horizontalOffset = isMobile ? 4 : 12;
-                const verticalTravelDistance = isMobile ? 45 : 55;
+            const overlay = document.getElementById('ring-popup-overlay');
+            const isOverlayHidden = overlay ? overlay.classList.contains('popup-overlay-hidden') : true;
 
-                const xShiftPosition = Math.sin(percent * Math.PI * 2) * horizontalFactor;
-                const yShiftPosition = 25 + (percent * verticalTravelDistance);
-
-                heartContainer.style.right = `calc(${horizontalOffset}% - ${xShiftPosition}px)`;
-                heartContainer.style.top = `${yShiftPosition}%`;
-            }
-
-            if(ringBoxContainer && ringBoxLid) {
-                const ringBoxSection = document.querySelector('.promises-section');
-                const boxRect = ringBoxSection.getBoundingClientRect();
-                
-                const sectionHeight = ringBoxSection.offsetHeight;
-                const entryPoint = window.innerHeight - boxRect.top;
-                
-                let boxProgress = entryPoint / (window.innerHeight + sectionHeight);
-                boxProgress = Math.max(0, Math.min(1, boxProgress));
-
-                const targetLidAngle = -110 - (boxProgress * 70);
-                ringBoxLid.style.transform = `rotateX(${targetLidAngle}deg) translateY(-120px)`;
-
-                const boxWaveX = Math.sin(boxProgress * Math.PI) * 20;
-                const boxModel = ringBoxContainer.querySelector('.ring-box-3d');
-                
-                const overlay = document.getElementById('ring-popup-overlay');
-                const isOverlayHidden = overlay ? overlay.classList.contains('popup-overlay-hidden') : true;
-
-                if(boxModel && isOverlayHidden) {
-                    boxModel.style.transform = `rotateX(-25deg) rotateY(${35 + (scrollY * 0.05)}deg) translateX(${boxWaveX}px)`;
-                }
+            if(boxModel && isOverlayHidden) {
+                // scrollY * 0.05 වෙනුවට percent එකට ගැලපෙන අගයක් යොදන්න (උදා: percent * 100)
+                boxModel.style.transform = `rotateX(-25deg) rotateY(${35 + (percent * 100)}deg) translateX(${boxWaveX}px)`;
             }
         }
     };
